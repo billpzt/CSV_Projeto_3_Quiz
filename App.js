@@ -4,22 +4,76 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 
 
 export default function App() {
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [perguntas, setPerguntas] = useState({});
+
+  const url = `https://trivia-by-api-ninjas.p.rapidapi.com/v1/trivia?category=${selectedCategory}&limit=10`;
+  
+  const options = {
+    method: 'GET',
+    headers: {
+		'X-RapidAPI-Key': 'a777e9f51bmshbe718764991ce9cp1688bajsn080688213b13',
+		'X-RapidAPI-Host': 'trivia-by-api-ninjas.p.rapidapi.com'
+  }
+};
+
   const CATEGORIESLIST = [
-    {id: 1, name: 'artliterature'},
-    {id: 2, name: 'language'}, 
-    {id: 3, name: 'sciencenature'}, 
-    {id: 4, name: 'general'}, 
-    {id: 5, name: 'fooddrink'}, 
-    {id: 6, name: 'peopleplaces'}, 
-    {id: 7, name: 'geography'}, 
-    {id: 8, name: 'historyholidays'}, 
-    {id: 9, name: 'entertainment'}, 
-    {id: 10, name: 'toysgames'}, 
-    {id: 11, name: 'music'}, 
-    {id: 12, name: 'mathematics'}, 
-    {id: 13, name: 'religionmythology'}, 
-    {id: 14, name: 'sportsleisure'}
+    {
+      name: "Art & Literature", 
+      category: 'artliterature'
+    },
+    {
+      name: "Language", 
+      category: 'language'
+    }, 
+    {
+      name: "Science & Nature", 
+      category: 'sciencenature'
+    }, 
+    {
+      name: "General", 
+      category: 'general'
+    }, 
+    {
+      name: "Food & Drink", 
+      category: 'fooddrink'
+    }, 
+    {
+      name: "People & Places", 
+      category: 'peopleplaces'
+    }, 
+    {
+      name: "Geography", 
+      category: 'geography'
+    }, 
+    {
+      name: "History & Holidays", 
+      category: 'historyholidays'
+    }, 
+    {
+      name: "Entertainment", 
+      category: 'entertainment'
+    }, 
+    {
+      name: "Toys & Games", 
+      category: 'toysgames'
+    }, 
+    {
+      name: "Music", 
+      category: 'music'
+    }, 
+    {
+      name: "Mathematics", 
+      category: 'mathematics'
+    }, 
+    {
+      name: "Religion & Mythology", 
+      category: 'religionmythology'
+    }, 
+    {
+      name: "Sports & Leisure", 
+      category: 'sportsleisure'
+    }
   ];
 
   const Item = ({name}) => (
