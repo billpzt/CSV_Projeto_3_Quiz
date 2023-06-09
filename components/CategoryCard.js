@@ -8,7 +8,7 @@ export default function CategoryCard(props) {
       <View style={styles.card}>
         <View>
           <Text style={styles.nome}>{props.category}</Text>
-          <Image style={styles.image} source={{ uri: props.path }} />
+          <Image style={styles.image} source={{ uri: props.imagePath }} />
         </View>
       </View>
     </TouchableOpacity>

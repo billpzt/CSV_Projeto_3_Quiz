@@ -18,7 +18,9 @@ export default function Home() {
     },
   };
 
-  const handleSearch = () => {
+  const handleSearch = (category) => {
+    setSelectedCategory(category);
+
     fetch(apiCall, options)
       .then((result) => result.json())
       .then((usefulData) => {
@@ -102,12 +104,6 @@ export default function Home() {
     },
   ];
 
-  //   const Item = ({name}) => (
-  //     <View style={styles.item}>
-  //       <Text style={styles.title}>{name}</Text>
-  //     </View>
-  //   );
-
   // function escolhaAleatoria(escolhas) {
   //   let index = Math.floor(Math.random() * escolhas.length);
   //   return escolhas[index];
@@ -120,7 +116,11 @@ export default function Home() {
       <FlatList
         styles={styles.flatlist}
         data={CATEGORIESLIST}
-        renderItem={({ item }) => <CategoryCard category={item.name} />}
+        renderItem={({ item }) => 
+          <CategoryCard 
+            category={item.name}
+            action={() => handleSearch(item.category)} 
+            />}
         keyExtractor={(item) => item.id}
       />
       <StatusBar style="auto" />
