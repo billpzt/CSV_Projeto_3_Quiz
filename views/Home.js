@@ -2,6 +2,8 @@ import React, { FC, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import CategoryCard from "../components/CategoryCard";
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -25,11 +27,19 @@ export default function Home() {
       .then((result) => result.json())
       .then((usefulData) => {
         setData(usefulData);
+        console.log(usefulData);
       })
       .catch((error) => {
         setError(`An error occurred: ${error}`);
       });
   };
+
+  const navigation = useNavigation();
+
+  function navegar(item) {
+    navigation.navigate("QuizPage", { data: item });
+    // navigation.navigate("QuizPage", item);
+  }
 
   const CATEGORIESLIST = [
     {
@@ -104,10 +114,15 @@ export default function Home() {
     },
   ];
 
-  // function escolhaAleatoria(escolhas) {
-  //   let index = Math.floor(Math.random() * escolhas.length);
-  //   return escolhas[index];
-  // }
+  const renderItem = ({ item }) => (
+    <CategoryCard
+      category={item.name}
+      action={() => {
+        handleSearch(item.category);
+        navegar(item.value);
+      }}
+    />
+  );
 
   return (
     <View style={styles.container}>
@@ -116,11 +131,7 @@ export default function Home() {
       <FlatList
         styles={styles.flatlist}
         data={CATEGORIESLIST}
-        renderItem={({ item }) => 
-          <CategoryCard 
-            category={item.name}
-            action={() => handleSearch(item.category)} 
-            />}
+        renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
       <StatusBar style="auto" />
